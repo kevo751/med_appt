@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StayHealthy | Navigation Bar</title>
+  <link rel="stylesheet" href="Navbar.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="../Landing_Page/LandingPage.html" class="logo">StayHealthy</a>
+    <div class="nav-links">
+      <a href="../Landing_Page/LandingPage.html" class="active">Home</a>
+      <a href="#appointments">Appointments</a>
+      <a href="../Sign_Up/Sign_Up.html">Sign Up</a>
+      <a href="../Login/Login.html" class="login-btn">Login</a>
+    </div>
+  </div>
+
+</body>
+</html>
