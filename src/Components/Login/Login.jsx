@@ -1,45 +1,73 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import { API_URL } from '../../../config';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
-  const [success, setSuccess] = useState('');
+  const [showerr, setShowerr] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (sessionStorage.getItem('auth-token')) navigate('/');
+  }, [navigate]);
+
+  const login = async (e) => {
     e.preventDefault();
+    setShowerr('');
     const err = {};
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) err.email = 'Please enter a valid email.';
-    if (!password) err.password = 'Please enter your password.';
-    else if (password.length < 8) err.password = 'Password must be at least 8 characters.';
+    if (password.length < 8) err.password = 'Password must be at least 8 characters.';
     setErrors(err);
-    setSuccess(Object.keys(err).length === 0 ? 'Login details look good!' : '');
+    if (Object.keys(err).length > 0) return;
+
+    try {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const json = await res.json();
+
+      if (json.authtoken) {
+        sessionStorage.setItem('auth-token', json.authtoken);
+        sessionStorage.setItem('email', email);
+        navigate('/');
+        window.location.reload();
+      } else if (json.errors) {
+        setShowerr(json.errors.map((er) => er.msg).join(' '));
+      } else {
+        setShowerr(json.error || 'Login failed. Please try again.');
+      }
+    } catch {
+      setShowerr('Cannot reach the server. Make sure "node index" is running.');
+    }
   };
+
+  const errStyle = { color: 'red', fontSize: '0.85rem' };
 
   return (
     <div className="form-container">
       <p className="eyebrow">Your health, connected</p>
       <h1>Good to see you again</h1>
 
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={login} noValidate>
         <label htmlFor="email">Email</label>
         <input type="email" id="email" name="email" value={email}
-          onChange={(e) => { setEmail(e.target.value); setErrors({ ...errors, email: '' }); }}
-          placeholder="you@example.com" />
-        {errors.email && <div className="error" style={{ color: 'red' }}>{errors.email}</div>}
+          onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
+        {errors.email && <div style={errStyle}>{errors.email}</div>}
 
         <label htmlFor="password">Password</label>
         <input type="password" id="password" name="password" value={password}
-          onChange={(e) => { setPassword(e.target.value); setErrors({ ...errors, password: '' }); }}
-          placeholder="Enter your password" />
-        {errors.password && <div className="error" style={{ color: 'red' }}>{errors.password}</div>}
+          onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
+        {errors.password && <div style={errStyle}>{errors.password}</div>}
+        {showerr && <div style={errStyle}>{showerr}</div>}
 
         <div className="button-row">
           <button type="submit" className="btn submit">Login</button>
         </div>
-        {success && <div style={{ color: 'green' }}>{success}</div>}
       </form>
 
       <p className="switch">New to StayHealthy? <Link to="/signup">Sign up for free</Link></p>
