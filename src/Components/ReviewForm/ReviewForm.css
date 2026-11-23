@@ -1,0 +1,22 @@
+.reviews-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; font-family: 'Poppins', sans-serif; }
+.reviews-container h1 { color: #2190FF; margin-bottom: 20px; }
+.reviews-table { width: 100%; border-collapse: collapse; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+.reviews-table th { background: #2190FF; color: #fff; padding: 12px; text-align: left; }
+.reviews-table td { padding: 12px; border-bottom: 1px solid #e5e5e5; vertical-align: top; }
+.reviews-table tr:nth-child(even) { background: #f7fbff; }
+.feedback-btn { background: #2190FF; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+.feedback-btn:hover:not(:disabled) { background: #0f6fd1; }
+.feedback-btn:disabled { background: #b5b5b5; cursor: not-allowed; }
+.given-stars { color: #f5b301; font-size: 18px; }
+.review-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.review-form { background: #fff; padding: 30px; border-radius: 12px; width: 90%; max-width: 420px; display: flex; flex-direction: column; gap: 8px; }
+.review-form h2 { margin: 0; color: #2190FF; }
+.review-doctor { margin: 0 0 10px; color: #555; }
+.review-form input, .review-form textarea { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; }
+.stars { display: flex; gap: 6px; }
+.star { font-size: 30px; color: #ccc; cursor: pointer; }
+.star.filled { color: #f5b301; }
+.review-error { color: red; margin: 0; }
+.review-buttons { display: flex; gap: 10px; margin-top: 10px; }
+.submit-btn { background: #2190FF; color: #fff; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+.cancel-btn { background: #eee; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }

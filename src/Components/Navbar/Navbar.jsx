@@ -23,6 +23,8 @@ function Navbar() {
       <div className="nav-links">
         <Link to="/" className="active">Home</Link>
         <Link to="/booking-consultation">Appointments</Link>
+        <Link to="/reviews">Reviews</Link>
+
         {isLoggedIn ? (
           <>
             <span className="welcome-user">Hi, {username}</span>
