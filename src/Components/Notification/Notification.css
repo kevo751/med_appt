@@ -1,0 +1,21 @@
+.notification-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  background: #ffffff;
+  border-left: 6px solid #2190FF;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  padding: 16px 20px;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+}
+.notification-title {
+  margin: 0 0 8px;
+  color: #2190FF;
+}
+.notification-container p {
+  margin: 4px 0;
+  font-size: 14px;
+}

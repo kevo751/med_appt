@@ -7,14 +7,29 @@ import { v4 as uuidv4 } from 'uuid';
 
 const DoctorCard = ({ name, speciality, experience, ratings }) => {
   const [showModal, setShowModal] = useState(false);
-  const [appointments, setAppointments] = useState([]);
+
+  // Bring back this doctor's booking if one was saved earlier
+  const [appointments, setAppointments] = useState(() => {
+    const saved = JSON.parse(localStorage.getItem('appointmentData') || 'null');
+    return saved && saved.doctorName === name ? [saved] : [];
+  });
 
   const handleCancel = (appointmentId) => {
     setAppointments(appointments.filter((a) => a.id !== appointmentId));
+    localStorage.removeItem('appointmentData');
+    window.dispatchEvent(new Event('appointmentChanged')); // tells Notification to hide
   };
 
   const handleFormSubmit = (appointmentData) => {
-    setAppointments([...appointments, { id: uuidv4(), ...appointmentData }]);
+    const newAppointment = {
+      id: uuidv4(),
+      doctorName: name,
+      doctorSpeciality: speciality,
+      ...appointmentData,
+    };
+    setAppointments([...appointments, newAppointment]);
+    localStorage.setItem('appointmentData', JSON.stringify(newAppointment));
+    window.dispatchEvent(new Event('appointmentChanged')); // tells Notification to show
     setShowModal(false);
   };
 

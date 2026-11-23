@@ -22,7 +22,7 @@ function Navbar() {
       <Link to="/" className="logo">StayHealthy</Link>
       <div className="nav-links">
         <Link to="/" className="active">Home</Link>
-        <Link to="/instant-consultation">Appointments</Link>
+        <Link to="/booking-consultation">Appointments</Link>
         {isLoggedIn ? (
           <>
             <span className="welcome-user">Hi, {username}</span>
