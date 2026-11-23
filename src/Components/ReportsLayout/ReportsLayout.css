@@ -1,0 +1,8 @@
+.reports-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; font-family: 'Poppins', sans-serif; }
+.reports-container h1 { color: #2190FF; }
+.reports-table { width: 100%; border-collapse: collapse; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+.reports-table th { background: #2190FF; color: #fff; padding: 12px; text-align: left; }
+.reports-table td { padding: 12px; border-bottom: 1px solid #e5e5e5; }
+.reports-table tr:nth-child(even) { background: #f7fbff; }
+.report-btn { display: inline-block; background: #2190FF; color: #fff; padding: 8px 14px; border-radius: 6px; text-decoration: none; }
+.report-btn:hover { background: #0f6fd1; }
