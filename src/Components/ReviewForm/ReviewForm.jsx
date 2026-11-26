@@ -10,11 +10,9 @@ const doctors = [
 
 function ReviewForm() {
   const [reviews, setReviews] = useState({});
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
 
-  const handleSubmit = (data) => {
-    setReviews({ ...reviews, [selectedDoctor.id]: data });
-    setSelectedDoctor(null);
+  const handleReview = (doctorId, data) => {
+    setReviews({ ...reviews, [doctorId]: data });
   };
 
   return (
@@ -39,13 +37,7 @@ function ReviewForm() {
                 <td>{doctor.name}</td>
                 <td>{doctor.speciality}</td>
                 <td>
-                  <button
-                    className="feedback-btn"
-                    disabled={!!given}
-                    onClick={() => setSelectedDoctor(doctor)}
-                  >
-                    {given ? 'Submitted' : 'Click Here'}
-                  </button>
+                  <GiveReviews doctor={doctor} onSubmit={handleReview} />
                 </td>
                 <td>
                   {given && (
@@ -61,14 +53,6 @@ function ReviewForm() {
           })}
         </tbody>
       </table>
-
-      {selectedDoctor && (
-        <GiveReviews
-          doctor={selectedDoctor}
-          onSubmit={handleSubmit}
-          onClose={() => setSelectedDoctor(null)}
-        />
-      )}
     </div>
   );
 }
